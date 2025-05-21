@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - RENIM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a2e0d5a55f.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary-color: #00bfa6;
+            --bg-light: #f5f7fa;
+            --bg-dark: #1c1c1e;
+            --text-light: #ffffff;
+            --text-dark: #1a1a1a;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .contact-container {
+            max-width: 900px;
+            margin: auto;
+            padding: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .form-section, .info-section {
+            flex: 1 1 400px;
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-section h2 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        button {
+            margin-top: 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #009e8f;
+        }
+
+        .info-section h3 {
+            color: var(--primary-color);
+        }
+
+        .info-section p, .info-section a {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .social-icons a {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* Dark mode */
+        body.dark {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        body.dark .form-section, body.dark .info-section {
+            background-color: #2a2a2a;
+            color: var(--text-light);
+        }
+
+        body.dark input, body.dark textarea, body.dark select {
+            background-color: #1e1e1e;
+            color: white;
+            border: 1px solid #555;
+        }
+
+        body.dark .info-section p, body.dark .info-section a {
+            color: #ccc;
+        }
+
+        body.dark .social-icons a {
+            color: #0ff;
+        }
+
+        body.dark .theme-toggle {
+            background: #444;
+        }
+
+        @media screen and (max-width: 768px) {
+            .contact-container {
+                flex-direction: column;
+            }
+        }
+
+        .estado-solicitud {
+            margin-top: 2rem;
+            background-color: #e8fdf9;
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px dashed var(--primary-color);
+        }
+
+        .estado-solicitud p {
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 Modo</button>
+
+    <div class="contact-container">
+        <!-- Formulario -->
+        <div class="form-section">
+            <h2>Contáctanos</h2>
+            <form action="#" method="POST" onsubmit="return enviarFormulario(this)">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="categoria">Categoría:</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="urgente">Urgente</option>
+                    <option value="sugerencia">Sugerencia</option>
+                    <option value="tecnica">Soporte técnico</option>
+                    <option value="general">Consulta general</option>
+                </select>
+
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+
+                <button type="submit" id="btnEnviar">Enviar mensaje</button>
+            </form>
+
+            <div id="estadoSolicitud" class="estado-solicitud" style="display: none;">
+                <h3>Estado de tu solicitud 📬</h3>
+                <p><strong>Categoría detectada por IA:</strong> <span id="categoriaDetectada"></span></p>
+                <p><strong>Código de seguimiento:</strong> <span id="codigoSeguimiento"></span></p>
+                <p><strong>Estado actual:</strong> En revisión</p>
+            </div>
+        </div>
+
+        <!-- Información -->
+        <div class="info-section">
+            <h3>¿Dónde estamos?</h3>
+            <p>RENIM - Red Nacional Inteligente de Medicamentos<br>
+            Culiacan Sinaloa, CLN<br>
+            soporte@renim.mx</p>
+
+            <h3>Síguenos</h3>
+            <div class="social-icons">
+                <a href="https://wa.me/5215555555555" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/renim_oficial" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("dark");
+        }
+
+        function generarCodigo() {
+            const letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const numeros = "0123456789";
+            let codigo = "";
+            for (let i = 0; i < 3; i++) codigo += letras.charAt(Math.floor(Math.random() * letras.length));
+            for (let i = 0; i < 5; i++) codigo += numeros.charAt(Math.floor(Math.random() * numeros.length));
+            return codigo;
+        }
+
+        function clasificarMensaje(msg) {
+            msg = msg.toLowerCase();
+            if (msg.includes("urgente") || msg.includes("ayuda")) return "Urgente";
+            if (msg.includes("idea") || msg.includes("mejorar")) return "Sugerencia";
+            if (msg.includes("error") || msg.includes("fallo")) return "Soporte técnico";
+            return "Consulta general";
+        }
+
+        function enviarFormulario(form) {
+            const btn = document.getElementById("btnEnviar");
+            const categoria = document.getElementById("categoria").value;
+            const mensaje = document.getElementById("mensaje").value;
+            const categoriaDetectada = clasificarMensaje(mensaje) || categoria;
+            const codigo = generarCodigo();
+
+            btn.textContent = "Enviando...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                document.getElementById("categoriaDetectada").innerText = categoriaDetectada;
+                document.getElementById("codigoSeguimiento").innerText = codigo;
+                document.getElementById("estadoSolicitud").style.display = "block";
+                form.reset();
+                btn.textContent = "Enviar mensaje";
+                btn.disabled = false;
+                alert("Mensaje enviado correctamente 🎉");
+            }, 1500);
+
+            return false;
+        }
+    </script>
+</body>
+</html>

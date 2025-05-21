@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>RENIM - Medicamentos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        main {
+            padding: 80px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        th {
+            background-color: #0066cc;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .actions a {
+            text-decoration: none;
+            color: #0066cc;
+            font-weight: bold;
+            margin: 0 5px;
+            transition: color 0.3s;
+        }
+
+        .actions a:hover {
+            color: #ffcc00;
+        }
+
+        .btn-eliminar {
+            color: red;
+        }
+
+        .btn-eliminar:hover {
+            color: darkred;
+        }
+
+        p a {
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        p a:hover {
+            color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <header>
+        <div class="topbar">
+            <div class="topbar-logo">
+                <img src="{{ url_for('static', filename='hero-bg.png') }}" alt="Logo RENIM">
+            </div>
+            <nav class="topbar-nav">
+                <ul>
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/medicamentos">Medicamentos</a></li>
+                    <li><a href="/agregar">Agregar Medicamento</a></li>
+                    <li><a href="/contacto">Contacto</a></li>
+                    <li><a href="/acerca">Nosotros</a></li>
+                    {% if 'usuario' not in session %}
+                        <li><a href="/login">Iniciar Sesión</a></li>
+                        <li><a href="/registro">Registrarse</a></li>
+                    {% else %}
+                        <li><a href="/logout">Cerrar Sesión</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+        <h1>Lista de Medicamentos</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Cantidad</th>
+                    <th>Disponible</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in medicamentos %}
+                <tr>
+                    <td>{{ m.nombre }}</td>
+                    <td>{{ m.categoria }}</td>
+                    <td>{{ m.cantidad }}</td>
+                    <td>{{ "Sí" if m.disponible else "No" }}</td>
+                    <td class="actions">
+                        <a href="{{ url_for('editar', id=m.id) }}">Editar</a> | 
+                        <a href="{{ url_for('eliminar', id=m.id) }}" class="btn-eliminar">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p><a href="/">Volver al inicio</a></p>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <p>&copy; 2025 RENIM. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

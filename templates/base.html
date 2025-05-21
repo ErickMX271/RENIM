@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RENIM - Red Nacional Inteligente de Medicamentos e Insumos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="claro">
+    <header class="topbar">
+        <div class="topbar-logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo RENIM">
+        </div>
+
+        <!-- Botón para cambiar de tema -->
+        <button class="theme-switcher-top" onclick="toggleTheme()">🌞 / 🌙</button>
+
+        <nav class="topbar-nav">
+            <ul>
+                <li><a href="{{ url_for('home') }}">Inicio</a></li>
+                <li><a href="#">Plataforma Médica</a></li>
+                <li><a href="#">Ciudadanos</a></li>
+                <li><a href="#">Estadísticas</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sección de Estadísticas -->
+        <section class="estadisticas">
+            <h2>Estadísticas Clave</h2>
+            <div class="estadisticas-cards">
+                <div class="estadistica">
+                    <h3>Total de Medicamentos</h3>
+                    <p>{{ total_medicamentos }}</p>
+                </div>
+                <div class="estadistica">
+                    <h3>Medicamentos Disponibles</h3>
+                    <p>{{ medicamentos_disponibles }}</p>
+                </div>
+                <div class="estadistica">
+                    <h3>Usuarios Registrados</h3>
+                    <p>{{ usuarios_registrados }}</p>
+                </div>
+                <div class="estadistica">
+                    <h3>Consultas Recibidas</h3>
+                    <p>{{ consultas_recibidas }}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Acciones Rápidas -->
+        <section class="acciones">
+            <h2>Acciones Rápidas</h2>
+            <div class="acciones-buttons">
+                <a href="/consulta" class="boton-accion">Consultar Medicamentos</a>
+                <a href="/agregar" class="boton-accion">Agregar Medicamentos</a>
+                <a href="/contacto" class="boton-accion">Contacto</a>
+            </div>
+        </section>
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 RENIM - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedTheme = localStorage.getItem("theme");
+            const body = document.body;
+            const themeButton = document.querySelector('.theme-switcher-top');
+
+            if (savedTheme === "oscuro") {
+                body.classList.add("oscuro");
+                themeButton.textContent = "🌙 / 🌞"; // Cambio de icono
+            } else {
+                body.classList.add("claro");
+                themeButton.textContent = "🌞 / 🌙"; // Cambio de icono
+            }
+        });
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeButton = document.querySelector('.theme-switcher-top');
+
+            if (body.classList.contains('claro')) {
+                body.classList.remove('claro');
+                body.classList.add('oscuro');
+                themeButton.textContent = '🌙 / 🌞';
+                localStorage.setItem('theme', 'oscuro');
+            } else {
+                body.classList.remove('oscuro');
+                body.classList.add('claro');
+                themeButton.textContent = '🌞 / 🌙';
+                localStorage.setItem('theme', 'claro');
+            }
+        }
+    </script>
+</body>
+</html>

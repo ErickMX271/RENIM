@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RENIM - Sistema Inteligente de Salud y Bienestar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="claro">
+    <!-- Barra superior -->
+    <header>
+        <div class="topbar">
+            <div class="topbar-logo">
+                <img src="{{ url_for('static', filename='hero-bg.png') }}" alt="">
+            </div>
+            <nav class="topbar-nav">
+                <ul>
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/medicamentos">Medicamentos</a></li>
+                    <li><a href="/consulta">Consulta</a></li> 
+                    <li><a href="/agregar">Agregar</a></li>
+                    <li><a href="/acerca">Acerca</a></li>
+                    <li><a href="/contacto">Contacto</a></li>
+                    <li><a href="javascript:void(0);" class="icon" onclick="toggleSidebar()">&#9776;</a></li>
+                    <li><button class="theme-switcher" onclick="toggleTheme()">🌞 / 🌙</button></li> <!-- Botón de cambio de tema -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Barra lateral (Side menu) -->
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
+        <a href="/">Inicio</a>
+        <a href="/medicamentos">Medicamentos</a>
+        <a href="/agregar">Agregar Medicamento</a>
+        <a href="/acerca">Acerca de RENIM</a>
+        <a href="/contacto">Contacto</a>
+    </div>
+
+    <!-- Contenido principal -->
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Bienvenido a RENIM</h1>
+                <p>¡Tu sistema inteligente de salud y bienestar!</p>
+                <a href="#about" class="btn-primary">Saber más</a>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <h2>¿Qué es RENIM?</h2>
+            <p>RENIM es una plataforma tecnológica diseñada para optimizar la distribución y el acceso a medicamentos e insumos médicos en México. Con el uso de inteligencia artificial, permite gestionar de manera eficiente los recursos en salud y bienestar, garantizando que los medicamentos y equipos lleguen a los lugares y personas que más lo necesitan, especialmente en comunidades rurales y marginadas.</p>
+            <p>La plataforma RENIM busca mejorar la equidad en el acceso a la salud, utilizando herramientas digitales para la monitorización en tiempo real, optimización de inventarios y un sistema de alerta ante faltantes de recursos. Además, RENIM facilita la toma de decisiones rápidas y acertadas para autoridades de salud y médicos mediante informes y análisis automáticos.</p>
+            <div class="about-img">
+                <img src="{{ url_for('static', filename='img/about-img.jpg') }}" alt="Plataforma RENIM">
+            </div>
+        </section>
+
+        <section class="footer">
+            <p>&copy; 2025 RENIM. Todos los derechos reservados.</p>
+        </section>
+    </main>
+
+    <script>
+        // Función para abrir y cerrar la barra lateral
+        function toggleSidebar() {
+            var sidebar = document.getElementById("mySidebar");
+            if (sidebar.style.width === "250px") {
+                sidebar.style.width = "0";
+            } else {
+                sidebar.style.width = "250px";
+            }
+        }
+
+        // Función para cambiar el tema (claro/oscuro)
+        function toggleTheme() {
+            const body = document.body;
+            const themeButton = document.querySelector('.theme-switcher');
+
+            if (body.classList.contains('claro')) {
+                body.classList.remove('claro');
+                body.classList.add('oscuro');
+                themeButton.textContent = '🌙 / 🌞'; // Cambiar el texto del botón
+                localStorage.setItem('theme', 'oscuro');
+            } else {
+                body.classList.remove('oscuro');
+                body.classList.add('claro');
+                themeButton.textContent = '🌞 / 🌙'; // Cambiar el texto del botón
+                localStorage.setItem('theme', 'claro');
+            }
+        }
+
+        // Cargar el tema guardado al iniciar la página
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedTheme = localStorage.getItem("theme");
+            const body = document.body;
+            const themeButton = document.querySelector('.theme-switcher');
+
+            if (savedTheme === "oscuro") {
+                body.classList.add("oscuro");
+                themeButton.textContent = "🌙 / 🌞";
+            } else {
+                body.classList.add("claro");
+                themeButton.textContent = "🌞 / 🌙";
+            }
+        });
+    </script>
+</body>
+</html>

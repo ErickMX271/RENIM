@@ -1,0 +1,351 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* GENERAL */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+}
+
+body.claro {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+body.oscuro {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+body.oscuro .topbar {
+    background-color: #34495e;
+}
+
+body.oscuro .sidebar {
+    background-color: #2c3e50;
+}
+
+body.oscuro .footer {
+    background-color: #34495e;
+}
+
+body.oscuro .boton-accion {
+    background-color: #3498db;
+}
+
+body.oscuro .boton-accion:hover {
+    background-color: #2980b9;
+}
+
+body.oscuro .theme-switcher-top {
+    background-color: #3498db;
+    color: white;
+}
+
+body.oscuro .theme-switcher-top:hover {
+    background-color: #2980b9;
+}
+
+/* TOPBAR */
+.topbar {
+    background-color: #0066cc;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.topbar-logo img {
+    height: 50px;
+}
+
+.topbar-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.topbar-nav ul li a {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.topbar-nav ul li a:hover {
+    color: #ffcc00;
+}
+
+.topbar-nav .icon {
+    display: none;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+/* SIDEBAR */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: color 0.3s;
+}
+
+.sidebar a:hover {
+    color: #ffcc00;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* HERO */
+.hero {
+    height: 100vh;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.hero .btn-primary {
+    background-color: #ffcc00;
+    color: #000000;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.hero .btn-primary:hover {
+    background-color: #d6ac05;
+}
+
+/* ABOUT */
+.about {
+    padding: 80px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.about h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.about p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.about-img {
+    margin-top: 30px;
+}
+
+.about-img img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* FOOTER */
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* RESPONSIVE DESIGN */
+@media screen and (max-width: 768px) {
+    .topbar-nav ul {
+        display: none;
+    }
+    
+    .topbar-nav .icon {
+        display: block;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+}
+
+/* LOGIN STYLES */
+.login-page {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f7fa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    min-height: 100vh;
+    padding-top: 80px; /* espacio por la topbar si está fija */
+}
+
+.header-login {
+    margin-bottom: 2rem;
+}
+
+.titulo-login {
+    color: #2c3e50;
+    font-size: 2rem;
+}
+
+.main-login {
+    width: 100%;
+    max-width: 400px;
+}
+
+.formulario-login {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.input-login {
+    padding: 10px;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.boton-login {
+    background-color: #27ae60;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.boton-login:hover {
+    background-color: #219150;
+}
+
+.mensaje-error {
+    color: #e74c3c;
+    margin-bottom: 1rem;
+}
+
+.registro-link {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+/* Estilos del botón de cambio de tema en la topbar */
+.theme-switcher-top {
+    background-color: #ffcc00;
+    color: #000;
+    padding: 8px 14px;
+    margin-left: auto;
+    margin-right: 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.theme-switcher-top:hover {
+    background-color: #d6ac05;
+}
+
+/* Estilo para el texto de la sección '¿Qué es RENIM?' */
+.about {
+    background-color: #fff;
+    color: #333; /* Color de texto en el tema claro */
+}
+
+body.oscuro .about {
+    background-color: #34495e; /* Fondo oscuro en el tema oscuro */
+    color: #ecf0f1; /* Texto claro en el tema oscuro */
+}
+
+body.oscuro .about h2 {
+    color: #ffcc00; /* Color más suave para los títulos en tema oscuro */
+}
+
+body.oscuro .about p {
+    color: #ecf0f1; /* Color suave para los párrafos en tema oscuro */
+}
+
+/* Para las imágenes en la sección About */
+.about-img img {
+    border-radius: 10px;
+}
+
+/* Asegúrate de que los enlaces en esta sección también sean legibles */
+.about a {
+    color: #0066cc; /* Color de enlace en tema claro */
+    text-decoration: none;
+}
+
+body.oscuro .about a {
+    color: #3498db; /* Color de enlace en tema oscuro */
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 10px;      /* Ajusta el espacio desde arriba */
+    left: 10px;     /* Ajusta el espacio desde la izquierda */
+    width: 50px;    /* Tamaño del logo: ancho */
+    height: 50px;   /* Tamaño del logo: alto */
+    background-image: url('../img/hero-bg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1100;  /* Que esté encima de todo */
+    pointer-events: none; /* Para que no interfiera con clics */
+}
+

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>RENIM - Agregar Medicamento</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="login-page">
+
+    <!-- Barra de navegación -->
+    <header>
+        <div class="topbar">
+            <div class="topbar-logo">
+                <img src="{{ url_for('static', filename='hero-bg.png') }}" alt="Logo RENIM">
+            </div>
+            <nav class="topbar-nav">
+                <ul>
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/medicamentos">Medicamentos</a></li>
+                    <li><a href="/agregar">Agregar Medicamento</a></li>
+                    <li><a href="/contacto">Contacto</a></li>
+                    <li><a href="/acerca">Nosotros</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Formulario para agregar medicamento -->
+    <main class="main-login">
+        <h1 class="titulo-login">Agregar Nuevo Medicamento</h1>
+        <form action="/agregar" method="POST" class="formulario-login">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" class="input-login" required>
+
+            <label for="categoria">Categoría:</label>
+            <input type="text" id="categoria" name="categoria" class="input-login" required>
+
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad" class="input-login" required>
+
+            <label for="disponible" style="margin-top: 10px;">Disponible:</label>
+            <input type="checkbox" id="disponible" name="disponible" style="margin-left: 10px;">
+
+            <button type="submit" class="boton-login" style="margin-top: 20px;">Agregar Medicamento</button>
+        </form>
+
+        <p class="registro-link" style="margin-top: 20px;"><a href="/medicamentos">Ver lista de medicamentos</a></p>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <p>&copy; 2025 RENIM. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>

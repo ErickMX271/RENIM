@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>RENIM - Consulta Ciudadana</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body.claro {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        body.oscuro {
+            background-color: #333;
+            color: #fff;
+        }
+
+        main {
+            padding: 80px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .consulta-form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .consulta-form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 1rem;
+        }
+
+        body.claro .consulta-form label {
+            color: #333;
+        }
+
+        body.oscuro .consulta-form label {
+            color: #fff;
+        }
+
+        .consulta-form input, .consulta-form textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        body.oscuro .consulta-form {
+            background-color: #444;
+            color: #fff;
+        }
+
+        body.oscuro .consulta-form input,
+        body.oscuro .consulta-form textarea {
+            background-color: #555;
+            color: #fff;
+            border: 1px solid #666;
+        }
+
+        body.oscuro .consulta-form button {
+            background-color: #0066cc;
+            color: white;
+        }
+
+        body.oscuro .consulta-form button:hover {
+            background-color: #004fa3;
+        }
+
+        .consulta-form button {
+            background-color: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .consulta-form button:hover {
+            background-color: #004fa3;
+        }
+
+        p a {
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        p a:hover {
+            color: #ffcc00;
+        }
+
+        .theme-switcher {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .theme-switcher:hover {
+            background-color: #004fa3;
+        }
+
+        /* Estilos para la tabla de medicamentos */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+        /* Estilos para los colores en la cantidad de medicamentos */
+        td.bajo {
+            background-color: #fff8b3;
+            color: #b38f00;
+        }
+
+        td.alto {
+            background-color: #ccffcc;
+            color: #006600;
+        }
+
+        td.agotado {
+            background-color: #ffcccc;
+            color: #cc0000;
+        }
+    </style>
+</head>
+<body class="claro">
+    <!-- Barra de navegación -->
+    <header>
+        <div class="topbar">
+            <div class="topbar-logo">
+                <img src="{{ url_for('static', filename='hero-bg.png') }}" alt="Logo RENIM">
+            </div>
+            <nav class="topbar-nav">
+                <ul>
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/medicamentos">Medicamentos</a></li>
+                    <li><a href="/agregar">Agregar Medicamento</a></li>
+                    <li><a href="/contacto">Contacto</a></li>
+                    <li><a href="/acerca">Nosotros</a></li>
+                    {% if 'usuario' not in session %}
+                        <li><a href="/login">Iniciar Sesión</a></li>
+                        <li><a href="/registro">Registrarse</a></li>
+                    {% else %}
+                        <li><a href="/logout">Cerrar Sesión</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+        <h1>Consulta Ciudadana</h1>
+        <div class="consulta-form">
+            <form method="POST">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+
+                <label for="email">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="consulta">Consulta:</label>
+                <textarea id="consulta" name="consulta" rows="5" required></textarea>
+
+                <button type="submit">Enviar Consulta</button>
+            </form>
+        </div>
+
+        {% if medicamentos %}
+        <h2>Listado de Medicamentos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for medicamento in medicamentos %}
+                <tr>
+                    <td>{{ medicamento.nombre }}</td>
+                    <td>{{ medicamento.categoria }}</td>
+                    <td class="{% if medicamento.cantidad == 0 %}agotado{% elif medicamento.cantidad < 50 %}bajo{% else %}alto{% endif %}">
+                        {% if medicamento.cantidad == 0 %}
+                            No disponible
+                        {% else %}
+                            {{ medicamento.cantidad }} unidades
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        {% if resultados %}
+        <section class="consulta-resultados" style="margin-bottom: 40px;">
+            <h2>Resultados de la consulta:</h2>
+            <ul>
+                {% for resultado in resultados %}
+                    <li style="margin-bottom: 20px; padding: 15px; background-color: rgba(0,0,0,0.05); border-radius: 10px;">
+                        <strong>Nombre:</strong> {{ resultado.nombre }}<br>
+                        <strong>Tipo:</strong> {{ resultado.tipo }}<br>
+                        <strong>Gramos:</strong> {{ resultado.gramos }}<br>
+                        <strong>Utilidad:</strong> {{ resultado.utilidad }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% elif mensaje %}
+        <section class="consulta-resultados" style="margin-bottom: 40px;">
+            <p style="font-size: 1.1rem; font-weight: bold;">{{ mensaje }}</p>
+        </section>
+        {% endif %}
+
+        <p><a href="/">Volver al inicio</a></p>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>&copy; 2025 RENIM. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Botón para cambiar de tema -->
+    <button class="theme-switcher" onclick="toggleTheme()">Cambiar a Tema Oscuro</button>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const themeButton = document.querySelector('.theme-switcher');
+            if (body.classList.contains('claro')) {
+                body.classList.remove('claro');
+                body.classList.add('oscuro');
+                themeButton.textContent = 'Cambiar a Tema Claro';
+            } else {
+                body.classList.remove('oscuro');
+                body.classList.add('claro');
+                themeButton.textContent = 'Cambiar a Tema Oscuro';
+            }
+        }
+    </script>
+</body>
+</html>
